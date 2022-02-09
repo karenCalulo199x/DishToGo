@@ -1,13 +1,14 @@
-package com.appscals.dish2go
+package com.appscals.dish2go.view.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
+import com.appscals.dish2go.R
 import com.appscals.dish2go.databinding.ActivityMainBinding
-import com.appscals.dish2go.fragment.FavoritesFragment
-import com.appscals.dish2go.fragment.HomeFragment
-import com.appscals.dish2go.fragment.MenuFragment
+import com.appscals.dish2go.view.fragment.FavoritesFragment
+import com.appscals.dish2go.view.fragment.HomeFragment
+import com.appscals.dish2go.view.fragment.MenuFragment
 
 class MainActivity : AppCompatActivity() {
 

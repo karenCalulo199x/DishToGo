@@ -1,4 +1,4 @@
-package com.appscals.dish2go.fragment
+package com.appscals.dish2go.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
