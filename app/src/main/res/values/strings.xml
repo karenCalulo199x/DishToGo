@@ -12,11 +12,16 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!-- EditText Labels -->
+    <!-- Labels -->
     <string name="title">Title</string>
     <string name="type">Type</string>
     <string name="category">Category</string>
     <string name="ingredients">Ingredients</string>
     <string name="cooking_time_minutes">Cooking Time (minutes)</string>
     <string name="direction_to_cook">Direction to Cook</string>
+    <string name="upload_options_title">Choose Upload Options</string>
+    <string name="camera_icon_lbl">Camera</string>
+    <string name="gallery_icon_lbl">Gallery</string>
+    <string name="yes_dialog_lbl">Yes</string>
+    <string name="no_dialog_lbl">No</string>
 </resources>
