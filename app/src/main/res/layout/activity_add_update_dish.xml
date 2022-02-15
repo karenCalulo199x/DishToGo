@@ -54,11 +54,15 @@
                     tools:srcCompat="@tools:sample/avatars" />
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/upload_img"
                     android:layout_width="@dimen/activity_margin_icon_large"
                     android:layout_height="@dimen/activity_margin_icon_large"
                     android:layout_gravity="end|bottom"
                     android:layout_marginEnd="@dimen/activity_margin_xMedium"
                     android:layout_marginBottom="@dimen/activity_margin_small"
+                    android:clickable="true"
+                    android:elevation="@dimen/activity_margin_small"
+                    android:focusable="true"
                     android:src="@drawable/ic_camera" />
             </FrameLayout>
 
