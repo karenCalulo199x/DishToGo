@@ -7,12 +7,12 @@ import android.os.Bundle
 import android.provider.MediaStore
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.appscals.dish2go.R
 import com.appscals.dish2go.databinding.ActivityAddUpdateDishBinding
 import com.appscals.dish2go.view.utils.Constants.mCAMERA
 import com.appscals.dish2go.view.utils.Constants.mPICTURE
 import com.appscals.dish2go.view.utils.callAlertDialog
+import com.appscals.dish2go.view.utils.setImage
 import com.appscals.dish2go.view.utils.setPermission
 import com.appscals.dish2go.view.utils.showUploadDialog
 
@@ -37,10 +37,9 @@ class AddUpdateDishActivity : AppCompatActivity() {
                 val data: Intent? = result.data
                 data?.extras?.let {
                     val thumbnail: Bitmap = data.extras!!.get("data") as Bitmap
-                    binding.layoutImg.setImageBitmap(thumbnail)
-                    binding.uploadImg.setImageDrawable(
-                        ContextCompat.getDrawable(this, R.drawable.ic_edit)
-                    )
+
+                    this.setImage(thumbnail, binding.layoutImg)
+                    this.setImage(R.drawable.ic_edit, binding.uploadImg)
                 }
             }
         }
@@ -51,10 +50,12 @@ class AddUpdateDishActivity : AppCompatActivity() {
                 val data: Intent? = result.data
                 data?.let {
                     val selectedImage = data.data
-                    binding.layoutImg.setImageURI(selectedImage)
-                    binding.uploadImg.setImageDrawable(
-                        ContextCompat.getDrawable(this, R.drawable.ic_edit)
-                    )
+
+                    selectedImage?.let { selectedImg ->
+                        this.setImage(selectedImg, binding.layoutImg)
+                    }
+
+                    this.setImage(R.drawable.ic_edit, binding.uploadImg)
 
                 }
             }

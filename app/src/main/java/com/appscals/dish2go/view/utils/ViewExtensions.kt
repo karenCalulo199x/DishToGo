@@ -8,10 +8,12 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
 import android.view.Window
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.appscals.dish2go.R
 import com.appscals.dish2go.databinding.LayoutUploadDialogBinding
+import com.bumptech.glide.Glide
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
@@ -112,4 +114,12 @@ fun Activity.setPermission(permission: String, onSuccess: () -> Unit, onDenied: 
                 p1?.continuePermissionRequest()
             }
         }).onSameThread().check()
+}
+
+fun Activity.setImage(image: Any, imgBinding: ImageView) {
+    Glide
+        .with(this)
+        .load(image)
+        .fitCenter()
+        .into(imgBinding)
 }
