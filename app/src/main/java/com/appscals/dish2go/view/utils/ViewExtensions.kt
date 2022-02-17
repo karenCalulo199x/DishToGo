@@ -1,22 +1,48 @@
 package com.appscals.dish2go.view.utils
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.Dialog
-import android.view.View
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 import android.view.Window
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.appscals.dish2go.R
-import com.appscals.dish2go.databinding.LayoutCustomDialogBinding
 import com.appscals.dish2go.databinding.LayoutUploadDialogBinding
-import timber.log.Timber
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
+
 
 fun Activity.displayToast(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
 
-fun Activity.displayDialog(header: String, message: String, callback: () -> (Unit)) {
+fun Activity.callAlertDialog() {
+    AlertDialog.Builder(this)
+        .setMessage(R.string.denied_permission)
+        .setPositiveButton("Go to Settings") { _, _ ->
+            try {
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                val uri = Uri.fromParts("package", packageName, null)
+                intent.data = uri
+                startActivity(intent)
+            } catch (e: ActivityNotFoundException) {
+                e.printStackTrace()
+            }
+        }
+        .setNegativeButton("Cancel") { dialog, _ ->
+            dialog.dismiss()
+        }.show()
+}
+
+fun Activity.displayCustomDialog(header: String, message: String, callback: () -> (Unit)) {
     val dialog = Dialog(this)
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
     dialog.setCancelable(false)
@@ -61,4 +87,29 @@ fun Activity.showUploadDialog(callback1: () -> (Unit), callback2: () -> (Unit)) 
         }
     }
     dialog.show()
+}
+
+fun Activity.setPermission(permission: String, onSuccess: () -> Unit, onDenied: () -> Unit) {
+    Dexter.withContext(this)
+        .withPermission(permission)
+        .withListener(object : PermissionListener {
+            override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
+                p0?.let {
+                    onSuccess.invoke()
+                }
+            }
+
+            override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
+                p0?.let {
+                    onDenied.invoke()
+                }
+            }
+
+            override fun onPermissionRationaleShouldBeShown(
+                p0: PermissionRequest?,
+                p1: PermissionToken?
+            ) {
+                p1?.continuePermissionRequest()
+            }
+        }).onSameThread().check()
 }

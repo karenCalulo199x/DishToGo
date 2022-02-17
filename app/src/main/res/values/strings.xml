@@ -24,4 +24,6 @@
     <string name="gallery_icon_lbl">Gallery</string>
     <string name="yes_dialog_lbl">Yes</string>
     <string name="no_dialog_lbl">No</string>
+    <!-- Message -->
+    <string name="denied_permission">It looks like you have turned off permissions required for this feature.\nIt can be enable under Application Settings</string>
 </resources>
