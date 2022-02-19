@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.appscals.dish2go.R
 import com.appscals.dish2go.databinding.ActivityAddUpdateDishBinding
 import com.appscals.dish2go.view.utils.Constants.mCAMERA
@@ -39,7 +40,13 @@ class AddUpdateDishActivity : AppCompatActivity() {
                     val thumbnail: Bitmap = data.extras!!.get("data") as Bitmap
 
                     this.setImage(thumbnail, binding.layoutImg)
-                    this.setImage(R.drawable.ic_edit, binding.uploadImg)
+
+                    binding.uploadImg.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            this,
+                            R.drawable.ic_edit
+                        )
+                    )
                 }
             }
         }
@@ -55,7 +62,12 @@ class AddUpdateDishActivity : AppCompatActivity() {
                         this.setImage(selectedImg, binding.layoutImg)
                     }
 
-                    this.setImage(R.drawable.ic_edit, binding.uploadImg)
+                    binding.uploadImg.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            this,
+                            R.drawable.ic_edit
+                        )
+                    )
 
                 }
             }
