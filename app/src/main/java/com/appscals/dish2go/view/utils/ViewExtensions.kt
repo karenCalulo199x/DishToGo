@@ -4,7 +4,10 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.Settings
 import android.view.Window
@@ -13,13 +16,18 @@ import android.widget.TextView
 import android.widget.Toast
 import com.appscals.dish2go.R
 import com.appscals.dish2go.databinding.LayoutUploadDialogBinding
+import com.appscals.dish2go.view.utils.Constants.IMAGE_DIRECTORY
 import com.bumptech.glide.Glide
 import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.single.PermissionListener
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.OutputStream
+import java.util.*
 
 
 fun Activity.displayToast(message: String) {
@@ -91,29 +99,38 @@ fun Activity.showUploadDialog(callback1: () -> (Unit), callback2: () -> (Unit)) 
     dialog.show()
 }
 
-fun Activity.setPermission(permission: String, onSuccess: () -> Unit, onDenied: () -> Unit) {
+fun Activity.getPermissions(
+    permissions: List<String?>?,
+    onSuccess: () -> Unit,
+    onDenied: () -> Unit
+) {
     Dexter.withContext(this)
-        .withPermission(permission)
-        .withListener(object : PermissionListener {
-            override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
-                p0?.let {
-                    onSuccess.invoke()
-                }
-            }
-
-            override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
-                p0?.let {
-                    onDenied.invoke()
+        .withPermissions(permissions)
+        .withListener(object : MultiplePermissionsListener {
+            override fun onPermissionsChecked(report: MultiplePermissionsReport) {
+                report.let {
+                    if (report.areAllPermissionsGranted()) {
+                        println("Permissions Granted")
+                        onSuccess.invoke()
+                    } else {
+                        println("Please Grant Permissions to use the app")
+                        onDenied.invoke()
+                    }
                 }
             }
 
             override fun onPermissionRationaleShouldBeShown(
-                p0: PermissionRequest?,
-                p1: PermissionToken?
+                permissions: List<PermissionRequest?>?,
+                token: PermissionToken?
             ) {
-                p1?.continuePermissionRequest()
+                token?.continuePermissionRequest()
+                println(permissions)
+                println(token)
             }
-        }).onSameThread().check()
+        }).withErrorListener {
+            Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
+        }
+        .onSameThread().check()
 }
 
 fun Activity.setImage(image: Any, imgBinding: ImageView) {
@@ -122,4 +139,22 @@ fun Activity.setImage(image: Any, imgBinding: ImageView) {
         .load(image)
         .fitCenter()
         .into(imgBinding)
+}
+
+fun Activity.saveImageToInternalStorage(bitmap: Bitmap): String {
+    val wrapper = ContextWrapper(applicationContext)
+
+    var file = wrapper.getDir(IMAGE_DIRECTORY, Context.MODE_PRIVATE)
+    file = File(file, "${UUID.randomUUID()}.jpg")
+
+    try {
+        val stream: OutputStream = FileOutputStream(file)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+        stream.flush()
+        stream.close()
+    } catch (e: IOException) {
+        e.printStackTrace()
+    }
+
+    return file.absolutePath
 }
