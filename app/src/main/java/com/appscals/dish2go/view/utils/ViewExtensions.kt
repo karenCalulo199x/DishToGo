@@ -11,9 +11,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.Settings
 import android.view.Window
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.appscals.dish2go.R
 import com.appscals.dish2go.databinding.LayoutUploadDialogBinding
 import com.appscals.dish2go.view.utils.Constants.IMAGE_DIRECTORY
@@ -157,4 +155,9 @@ fun Activity.saveImageToInternalStorage(bitmap: Bitmap): String {
     }
 
     return file.absolutePath
+}
+
+fun Activity.setDropDownAdapter(listItem: Array<String>, binder: AutoCompleteTextView) {
+    val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, listItem)
+    binder.setAdapter(adapter)
 }

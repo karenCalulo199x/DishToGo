@@ -159,6 +159,15 @@ class AddUpdateDishActivity : AppCompatActivity() {
                 }
             )
         }
+
+        this.setDropDownAdapter(
+            resources.getStringArray(R.array.category_list),
+            binding.categoryAutocompleteTv
+        )
+        this.setDropDownAdapter(
+            resources.getStringArray(R.array.type_list),
+            binding.typeAutoCompleteTv
+        )
     }
 
 }
