@@ -1,4 +1,4 @@
-package com.appscals.dish2go.view.utils
+package com.appscals.dish2go.view.utils.extensions
 
 import android.app.Activity
 import android.app.AlertDialog

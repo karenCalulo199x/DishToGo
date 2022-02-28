@@ -13,9 +13,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.appscals.dish2go.R
 import com.appscals.dish2go.databinding.ActivityAddUpdateDishBinding
-import com.appscals.dish2go.view.utils.*
 import com.appscals.dish2go.view.utils.Constants.mCAMERA
 import com.appscals.dish2go.view.utils.Constants.readExtStorage
+import com.appscals.dish2go.view.utils.extensions.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
