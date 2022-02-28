@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="default_margin">16dp</dimen>
+
+    <dimen name="activity_margin_small">10dp</dimen>
+    <dimen name="activity_margin_medium">20dp</dimen>
+    <dimen name="activity_margin_xMedium">25dp</dimen>
+    <dimen name="activity_margin_xxMedium">30dp</dimen>
+    <dimen name="activity_margin_icon_large">40dp</dimen>
+</resources>

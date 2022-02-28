@@ -1,8 +1,29 @@
 <resources>
+    <!-- Menu -->
     <string name="app_name">Dish2Go</string>
     <string name="home">Home</string>
     <string name="menu">Menu</string>
     <string name="favorites">Favorites</string>
+    <string name="add">Add</string>
+
+    <!-- Activity Labels -->
+    <string name="add_dish_title">Add Dish</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Labels -->
+    <string name="title">Title</string>
+    <string name="type">Type</string>
+    <string name="category">Category</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="cooking_time_minutes">Cooking Time (minutes)</string>
+    <string name="direction_to_cook">Direction to Cook</string>
+    <string name="upload_options_title">Choose Upload Options</string>
+    <string name="camera_icon_lbl">Camera</string>
+    <string name="gallery_icon_lbl">Gallery</string>
+    <string name="yes_dialog_lbl">Yes</string>
+    <string name="no_dialog_lbl">No</string>
+    <!-- Message -->
+    <string name="denied_permission">It looks like you have turned off permissions required for this feature.\nIt can be enable under Application Settings</string>
 </resources>
